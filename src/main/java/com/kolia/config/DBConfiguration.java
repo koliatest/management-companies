@@ -16,9 +16,9 @@ import java.util.Properties;
 public class DBConfiguration {
 
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String PROPERTY_NAME_DATABASE_URL = "jdbc:mysql://localhost:3306/test_db";
-    private static final String PROPERTY_NAME_DATABASE_PASSWORD = "root";
-    private static final String PROPERTY_NAME_DATABASE_USERNAME = "root";
+    private static final String PROPERTY_NAME_DATABASE_URL = "jdbc:mysql://node34110-management-companies.unicloud.pl/user";
+    private static final String PROPERTY_NAME_DATABASE_PASSWORD = "12345678";
+    private static final String PROPERTY_NAME_DATABASE_USERNAME = "user";
 
     private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "org.hibernate.dialect.MySQL5Dialect";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "true";

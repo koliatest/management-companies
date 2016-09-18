@@ -26,14 +26,16 @@
                 <c:forEach items = "${companies}" var = "company">
                     <c:if test="${empty company.parentCompany}">
                         <div id="treeDiv1">
-                            <li>
-                                <h3><a href="/edit/${company.id}">${company.name}</a> |
-                                <font color="green">${company.earnings} $</font></h3>
-                            </li>
-                            <ul>
-                                <c:forEach var="child" items="${company.childCompanies}">
-                                    <template:nodeTree node="${child}"/>
-                                </c:forEach>
+                            <ul class="treeCSS">
+                                <li>
+                                    <h3><a href="/edit/${company.id}">${company.name}</a> |
+                                    <font color="green">${company.earnings} $</font></h3>
+                                </li>
+                                <ul>
+                                    <c:forEach var="child" items="${company.childCompanies}">
+                                        <template:nodeTree node="${child}"/>
+                                    </c:forEach>
+                                </ul>
                             </ul>
                         </div>
                     </c:if>
