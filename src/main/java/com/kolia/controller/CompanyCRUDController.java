@@ -19,17 +19,6 @@ public class CompanyCRUDController {
     @Autowired
     CompanyService companyService;
 
-    @RequestMapping(value = "/companies", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<List<Company>> getJSON() {
-        List<Company> todoItemList = companyService.findAll();
-
-        if(todoItemList.isEmpty()) {
-            return new ResponseEntity<List<Company>>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<List<Company>>(todoItemList, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getIndex() {
 
@@ -80,7 +69,7 @@ public class CompanyCRUDController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String Update(@PathVariable(value = "id") Integer id,
                                @ModelAttribute(value = "dto") CompanyDTO dto,
-                               @RequestParam(value = "checked", required = false) Boolean checked) {
+                               @RequestParam(value = "checked", required = false) boolean checked) {
 
         Company company = companyService.findById(id);
         company.setName(dto.getName());
@@ -90,11 +79,28 @@ public class CompanyCRUDController {
             company.setParentCompany(companyService.findById(dto.getParent_id()));
         }
 
+        if(checked == true) {
+            company.setParentCompany(null);
+        }
         companyService.update(company);
 
         if(checked == false) {
             companyService.findById(dto.getParent_id()).getChildCompanies().add(company);
         }
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String Delete(@PathVariable(value = "id") Integer id){
+
+        Company companyToDelete = companyService.findById(id);
+        if(companyToDelete.getParentCompany() != null){
+            companyToDelete.getChildCompanies().clear();
+            List<Company> children = companyToDelete.getParentCompany().getChildCompanies();
+            children.remove(companyToDelete);
+        }
+        companyService.delete(id);
 
         return "redirect:/";
     }

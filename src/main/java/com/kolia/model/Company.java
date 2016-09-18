@@ -23,7 +23,7 @@ public class Company {
     @Column
     private Double earnings;
 
-    @OneToMany(mappedBy = "parentCompany", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentCompany", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JsonBackReference
     private List<Company> childCompanies = new ArrayList<Company>();
 
@@ -71,5 +71,29 @@ public class Company {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof Company))
+            return false;
+
+        Company other = (Company)o;
+
+        if (id == other.getId()) return true;
+        if (id == null) return false;
+
+        // equivalence by id
+        return id.equals(other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        if (id != null) {
+            return id.hashCode();
+        } else {
+            return super.hashCode();
+        }
     }
 }

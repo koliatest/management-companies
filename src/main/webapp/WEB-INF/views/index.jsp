@@ -70,9 +70,9 @@
                             </c:forEach>
                         </sf:select> <br>
                         <input
-                                <c:if test="${!empty currentCompany.name}">
-                                    <c:if test="${empty currentCompany.parentCompany.id}">checked="true"</c:if>
-                                </c:if>
+                            <c:if test="${!empty currentCompany.name}">
+                                <c:if test="${empty currentCompany.parentCompany.id}">checked="true"</c:if>
+                            </c:if>
                                 type="checkbox" id="chId" name="checked">
                         <label>Main company</label>
                     </c:if>
@@ -83,7 +83,7 @@
 
                 <c:if test="${!empty currentCompany.name}">
                     <button type="submit" style="width: 50%;" class="btn btn-success btn-lg">Update</button>
-                    <a href="/delete/${currentCompany}" style="width: 40%;" class="btn btn-danger btn-lg">Delete</a>
+                    <a href="/delete/${currentCompany.id}" style="width: 40%;" class="btn btn-danger btn-lg">Delete</a>
                 </c:if>
                 <c:if test="${empty currentCompany.name}">
                     <button type="submit" style="width: 50%;" class="btn btn-success btn-lg">Add</button>
